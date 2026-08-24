@@ -1,1 +1,44 @@
-# flywheelcad-releases
+# FlywheelCAD releases
+
+Public download host for [FlywheelCAD](https://digitalhandstand.com/flywheelcad/).
+The application source is private; only the built disk images are published here,
+as **release assets**.
+
+## Downloads
+
+| Version | Download | SHA-256 |
+|---|---|---|
+| 0.20 (beta) | [FlywheelCAD-0.20.dmg](https://github.com/flx/flywheelcad-releases/releases/download/v0.20/FlywheelCAD-0.20.dmg) | `5372f1ae039942a69c6559ce0e48fa9629ec2987140bbb6ffc1ce35aa7c9b4f7` |
+
+macOS on Apple silicon. Signed with a Developer ID but **not notarized**, so
+macOS warns on first launch — right-click the app and choose **Open**. The build
+bundles its own CPython runtime, so no system Python is required.
+
+## Why this repo exists
+
+digitalhandstand.com is deployed by Cloudflare Pages, which refuses any single
+asset over **25 MiB** and fails the *entire* deploy when one exceeds it, silently
+leaving the live site on the previous commit. FlywheelCAD 0.20 is 29.5 MiB — it
+bundles a Python runtime, where the 0.7–0.10 builds were 6–10 MiB and slipped
+under the limit. So the images cannot live in the website repo.
+
+## Publishing a new version
+
+1. Build in the app repo: `scripts/package.sh --skip-notarize`.
+   It **auto-increments** `MARKETING_VERSION` on every run; pass
+   `--no-version-bump` to re-package the same version.
+2. Copy the output to the exact public filename — the asset takes the name of
+   the file on disk, and `file#Label` sets only a display label:
+
+       cp build/dmg/FlywheelCAD-<X.Y>-UNNOTARIZED.dmg /tmp/FlywheelCAD-<X.Y>.dmg
+
+3. Publish it as a release asset (nothing is committed to this repo):
+
+       gh release create v<X.Y> /tmp/FlywheelCAD-<X.Y>.dmg \
+         --repo flx/flywheelcad-releases --title "FlywheelCAD <X.Y> (beta)"
+
+4. Point the website download button at:
+
+       https://github.com/flx/flywheelcad-releases/releases/download/v<X.Y>/FlywheelCAD-<X.Y>.dmg
+
+   A newly uploaded asset can 404 for a few seconds while the CDN propagates.

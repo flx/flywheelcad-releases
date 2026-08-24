@@ -1,0 +1,13 @@
+# Disk images are published as RELEASE ASSETS, never committed.
+#
+# A committed 30 MiB image lands in git history permanently — ten releases
+# would mean a ~300 MiB clone for everyone, forever. Release assets are stored
+# outside the git object database, so they cost the repo nothing.
+#
+#   gh release create v<X.Y> FlywheelCAD-<X.Y>.dmg --repo flx/flywheelcad-releases
+#
+# NOTE: `gh release create file#Label` sets a display LABEL, not the filename —
+# the asset keeps the name of the file on disk. Copy the build to the exact
+# public name first.
+*.dmg
+.DS_Store
