@@ -8,11 +8,13 @@ as **release assets**.
 
 | Version | Download | SHA-256 |
 |---|---|---|
+| 0.21 (beta) | [FlywheelCAD-0.21.dmg](https://github.com/flx/flywheelcad-releases/releases/download/v0.21/FlywheelCAD-0.21.dmg) | `10f040ed9c71cdc5735c57cc0eeb2c7ac87a7ef3456f87910c1ee3b42c256cc2` |
 | 0.20 (beta) | [FlywheelCAD-0.20.dmg](https://github.com/flx/flywheelcad-releases/releases/download/v0.20/FlywheelCAD-0.20.dmg) | `5372f1ae039942a69c6559ce0e48fa9629ec2987140bbb6ffc1ce35aa7c9b4f7` |
 
-macOS on Apple silicon. Signed with a Developer ID but **not notarized**, so
-macOS warns on first launch — right-click the app and choose **Open**. The build
-bundles its own CPython runtime, so no system Python is required.
+macOS on Apple silicon. **0.21 is notarized by Apple** — it opens normally, with
+no Gatekeeper warning. (0.20 is signed but not notarized and needs a
+right-click → **Open** on first launch.) The build bundles its own CPython
+runtime, so no system Python is required.
 
 ## Why this repo exists
 
@@ -24,7 +26,7 @@ under the limit. So the images cannot live in the website repo.
 
 ## Publishing a new version
 
-1. Build in the app repo: `scripts/package.sh --skip-notarize`.
+1. Build in the app repo: `scripts/package.sh` (notarizes and staples).
    It **auto-increments** `MARKETING_VERSION` on every run; pass
    `--no-version-bump` to re-package the same version.
 2. Copy the output to the exact public filename — the asset takes the name of
