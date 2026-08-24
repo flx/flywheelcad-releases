@@ -8,10 +8,11 @@ as **release assets**.
 
 | Version | Download | SHA-256 |
 |---|---|---|
+| 0.22 (beta) | [FlywheelCAD-0.22.dmg](https://github.com/flx/flywheelcad-releases/releases/download/v0.22/FlywheelCAD-0.22.dmg) | `6a9e3bf6d41837667a0a4f8ab710338ad9dc2515519a3587e1a21ee13e8094c0` |
 | 0.21 (beta) | [FlywheelCAD-0.21.dmg](https://github.com/flx/flywheelcad-releases/releases/download/v0.21/FlywheelCAD-0.21.dmg) | `10f040ed9c71cdc5735c57cc0eeb2c7ac87a7ef3456f87910c1ee3b42c256cc2` |
 | 0.20 (beta) | [FlywheelCAD-0.20.dmg](https://github.com/flx/flywheelcad-releases/releases/download/v0.20/FlywheelCAD-0.20.dmg) | `5372f1ae039942a69c6559ce0e48fa9629ec2987140bbb6ffc1ce35aa7c9b4f7` |
 
-macOS on Apple silicon. **0.21 is notarized by Apple** — it opens normally, with
+macOS on Apple silicon. **0.21 and later are notarized by Apple** — it opens normally, with
 no Gatekeeper warning. (0.20 is signed but not notarized and needs a
 right-click → **Open** on first launch.) The build bundles its own CPython
 runtime, so no system Python is required.
