@@ -8,6 +8,7 @@ as **release assets**.
 
 | Version | Download | SHA-256 |
 |---|---|---|
+| 0.23 (beta) | [FlywheelCAD-0.23.dmg](https://github.com/flx/flywheelcad-releases/releases/download/v0.23/FlywheelCAD-0.23.dmg) | `fb18c9dac50f1722fe36e218b1f35ef6a294f57c7ca19d7c7fc5ef2573128dd6` |
 | 0.22 (beta) | [FlywheelCAD-0.22.dmg](https://github.com/flx/flywheelcad-releases/releases/download/v0.22/FlywheelCAD-0.22.dmg) | `6a9e3bf6d41837667a0a4f8ab710338ad9dc2515519a3587e1a21ee13e8094c0` |
 | 0.21 (beta) | [FlywheelCAD-0.21.dmg](https://github.com/flx/flywheelcad-releases/releases/download/v0.21/FlywheelCAD-0.21.dmg) | `10f040ed9c71cdc5735c57cc0eeb2c7ac87a7ef3456f87910c1ee3b42c256cc2` |
 | 0.20 (beta) | [FlywheelCAD-0.20.dmg](https://github.com/flx/flywheelcad-releases/releases/download/v0.20/FlywheelCAD-0.20.dmg) | `5372f1ae039942a69c6559ce0e48fa9629ec2987140bbb6ffc1ce35aa7c9b4f7` |
@@ -21,27 +22,63 @@ runtime, so no system Python is required.
 
 digitalhandstand.com is deployed by Cloudflare Pages, which refuses any single
 asset over **25 MiB** and fails the *entire* deploy when one exceeds it, silently
-leaving the live site on the previous commit. FlywheelCAD 0.20 is 29.5 MiB — it
-bundles a Python runtime, where the 0.7–0.10 builds were 6–10 MiB and slipped
-under the limit. So the images cannot live in the website repo.
+leaving the live site on the previous commit. Every build since 0.20 has been
+around 29–30 MiB (0.23 is 29.3 MiB) — they bundle a Python runtime, where the
+0.7–0.10 builds were 6–10 MiB and slipped under the limit. So the images cannot
+live in the website repo.
 
 ## Publishing a new version
 
 1. Build in the app repo: `scripts/package.sh` (notarizes and staples).
    It **auto-increments** `MARKETING_VERSION` on every run; pass
    `--no-version-bump` to re-package the same version.
-2. Copy the output to the exact public filename — the asset takes the name of
-   the file on disk, and `file#Label` sets only a display label:
+2. Check the name you are about to publish. The asset takes the name of the file
+   on disk (`file#Label` sets only a display label), and `package.sh` names the
+   image by whether it notarized:
 
-       cp build/dmg/FlywheelCAD-<X.Y>-UNNOTARIZED.dmg /tmp/FlywheelCAD-<X.Y>.dmg
+   * full run → `build/dmg/FlywheelCAD-<X.Y>.dmg` — already the public name,
+     upload it as-is;
+   * `--skip-notarize` → `build/dmg/FlywheelCAD-<X.Y>-UNNOTARIZED.dmg`, and that
+     suffix is deliberate. **Do not rename it to the public name** — the
+     filename is the only thing distinguishing an unnotarized dev build, and a
+     rename publishes one as if it were notarized. Re-run without the flag.
+
+   Verify before publishing, because "signed" and "notarized" fail differently
+   and only the second is checked here:
+
+       spctl -a -t open --context context:primary-signature build/dmg/FlywheelCAD-<X.Y>.dmg
+       xcrun stapler validate build/dmg/FlywheelCAD-<X.Y>.dmg
+
+   Expect `source=Notarized Developer ID` from the first and "The validate
+   action worked!" from the second. **Both**: `spctl` also passes on a
+   notarized-but-unstapled image, and the staple is what lets a first launch
+   work with no network.
 
 3. Publish it as a release asset (nothing is committed to this repo):
 
-       gh release create v<X.Y> /tmp/FlywheelCAD-<X.Y>.dmg \
+       gh release create v<X.Y> build/dmg/FlywheelCAD-<X.Y>.dmg \
          --repo flx/flywheelcad-releases --title "FlywheelCAD <X.Y> (beta)"
 
-4. Point the website download button at:
+4. Add the row to the table above. The hash is already computed —
+   `package.sh` writes `build/dmg/FlywheelCAD-<X.Y>.dmg.sha256` next to the
+   image, so copy it rather than re-running `shasum` against a different file
+   than the one you uploaded.
+
+5. Point the website download button at:
 
        https://github.com/flx/flywheelcad-releases/releases/download/v<X.Y>/FlywheelCAD-<X.Y>.dmg
 
    A newly uploaded asset can 404 for a few seconds while the CDN propagates.
+
+   That button lives in `flywheelcad/index.html` in the website repo, and it is
+   the only place the version appears — but the guides and sample bundles
+   published alongside it are COPIES from the app repo and go stale silently.
+   Refresh them in the same sitting:
+
+       python3 scripts/publish-manual-page.py      # -> flywheelcad/manual/index.html
+       python3 scripts/publish-ai-guide.py         # -> downloads/FlywheelCAD-AI-Scripting-Guide.md
+       python3 scripts/package-sample-zips.py      # -> downloads/FlywheelCAD-{Samples,Showcase}.zip
+
+   then bump the `?v=YYYYMMDD<a/b>` cache-bust on whichever of those files
+   actually changed. At 0.23 the published AI guide was found five commits
+   behind its source, so this is a real failure mode and not a formality.
