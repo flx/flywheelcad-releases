@@ -6,8 +6,16 @@ as **release assets**.
 
 ## Downloads
 
+**Always the newest build:** [FlywheelCAD.dmg](https://github.com/flx/flywheelcad-releases/releases/latest/download/FlywheelCAD.dmg) — GitHub resolves that URL to
+the newest release's asset of that name, so the download buttons on
+flywheelcad.com and digitalhandstand.com point there and never change. The
+versioned rows below are the same images under their versioned names, with
+the checksum to verify against.
+
 | Version | Download | SHA-256 |
 |---|---|---|
+| 0.35 (beta) | [FlywheelCAD-0.35.dmg](https://github.com/flx/flywheelcad-releases/releases/download/v0.35/FlywheelCAD-0.35.dmg) | `55a860e05f2d4ef59456a694e0efb81406d6061c8a41a52bbd2f9437989e571c` |
+| 0.25 (beta) | [FlywheelCAD-0.25.dmg](https://github.com/flx/flywheelcad-releases/releases/download/v0.25/FlywheelCAD-0.25.dmg) | `fa586fcb48a7dd457c500896ff816a9cd68f47223dfe9db9f251ca64f858b884` |
 | 0.23 (beta) | [FlywheelCAD-0.23.dmg](https://github.com/flx/flywheelcad-releases/releases/download/v0.23/FlywheelCAD-0.23.dmg) | `fb18c9dac50f1722fe36e218b1f35ef6a294f57c7ca19d7c7fc5ef2573128dd6` |
 | 0.22 (beta) | [FlywheelCAD-0.22.dmg](https://github.com/flx/flywheelcad-releases/releases/download/v0.22/FlywheelCAD-0.22.dmg) | `6a9e3bf6d41837667a0a4f8ab710338ad9dc2515519a3587e1a21ee13e8094c0` |
 | 0.21 (beta) | [FlywheelCAD-0.21.dmg](https://github.com/flx/flywheelcad-releases/releases/download/v0.21/FlywheelCAD-0.21.dmg) | `10f040ed9c71cdc5735c57cc0eeb2c7ac87a7ef3456f87910c1ee3b42c256cc2` |
@@ -54,26 +62,30 @@ live in the website repo.
    notarized-but-unstapled image, and the staple is what lets a first launch
    work with no network.
 
-3. Publish it as a release asset (nothing is committed to this repo):
+3. Publish it as release assets (nothing is committed to this repo) — BOTH
+   the versioned image and the constant-name copy `package.sh` writes beside
+   it, in one release:
 
-       gh release create v<X.Y> build/dmg/FlywheelCAD-<X.Y>.dmg \
+       gh release create v<X.Y> build/dmg/FlywheelCAD-<X.Y>.dmg build/dmg/FlywheelCAD.dmg \
          --repo flx/flywheelcad-releases --title "FlywheelCAD <X.Y> (beta)"
+
+   The copy is what the sites' "latest" link resolves to
+   (`…/releases/latest/download/FlywheelCAD.dmg`); a release without it
+   leaves the buttons serving the PREVIOUS version's copy. Do not mark the
+   release `--prerelease` or leave it a draft — "latest" skips both.
 
 4. Add the row to the table above. The hash is already computed —
    `package.sh` writes `build/dmg/FlywheelCAD-<X.Y>.dmg.sha256` next to the
    image, so copy it rather than re-running `shasum` against a different file
    than the one you uploaded.
 
-5. Point the website download button at:
+5. The download buttons need NO edit: `flywheelcad/index.html` on
+   digitalhandstand.com and `index.html` on flywheelcad.com both link to the
+   always-latest URL above. A newly uploaded asset can 404 for a few seconds
+   while the CDN propagates.
 
-       https://github.com/flx/flywheelcad-releases/releases/download/v<X.Y>/FlywheelCAD-<X.Y>.dmg
-
-   A newly uploaded asset can 404 for a few seconds while the CDN propagates.
-
-   That button lives in `flywheelcad/index.html` in the website repo, and it is
-   the only place the version appears — but the guides and sample bundles
-   published alongside it are COPIES from the app repo and go stale silently.
-   Refresh them in the same sitting:
+   The guides and sample bundles published on digitalhandstand.com are COPIES
+   from the app repo and go stale silently. Refresh them in the same sitting:
 
        python3 scripts/publish-manual-page.py      # -> flywheelcad/manual/index.html
        python3 scripts/publish-ai-guide.py         # -> downloads/FlywheelCAD-AI-Scripting-Guide.md
