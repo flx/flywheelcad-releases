@@ -1,6 +1,6 @@
 # FlywheelCAD releases
 
-Public download host for [FlywheelCAD](https://digitalhandstand.com/flywheelcad/).
+Public download host for [FlywheelCAD](https://flywheelcad.com/).
 The application source is private; only the built disk images are published here,
 as **release assets**.
 
@@ -8,7 +8,7 @@ as **release assets**.
 
 **Always the newest build:** [FlywheelCAD.dmg](https://github.com/flx/flywheelcad-releases/releases/latest/download/FlywheelCAD.dmg) — GitHub resolves that URL to
 the newest release's asset of that name, so the download buttons on
-flywheelcad.com and digitalhandstand.com point there and never change. The
+flywheelcad.com point there and never change. The
 versioned rows below are the same images under their versioned names, with
 the checksum to verify against.
 
@@ -28,7 +28,7 @@ runtime, so no system Python is required.
 
 ## Why this repo exists
 
-digitalhandstand.com is deployed by Cloudflare Pages, which refuses any single
+flywheelcad.com (like digitalhandstand.com before it) is deployed by Cloudflare Pages, which refuses any single
 asset over **25 MiB** and fails the *entire* deploy when one exceeds it, silently
 leaving the live site on the previous commit. Every build since 0.20 has been
 around 29–30 MiB (0.23 is 29.3 MiB) — they bundle a Python runtime, where the
@@ -79,18 +79,24 @@ live in the website repo.
    image, so copy it rather than re-running `shasum` against a different file
    than the one you uploaded.
 
-5. The download buttons need NO edit: `flywheelcad/index.html` on
-   digitalhandstand.com and `index.html` on flywheelcad.com both link to the
-   always-latest URL above. A newly uploaded asset can 404 for a few seconds
-   while the CDN propagates.
+5. The download buttons need NO edit: every one on flywheelcad.com links to
+   the always-latest URL above. A newly uploaded asset can 404 for a few
+   seconds while the CDN propagates.
 
-   The guides and sample bundles published on digitalhandstand.com are COPIES
-   from the app repo and go stale silently. Refresh them in the same sitting:
+   The User Manual, the component library page, the AI guide and the sample
+   bundles on flywheelcad.com are COPIES from the app repo and go stale
+   silently. Refresh them in the same sitting, from the website repo
+   (`~/Documents/Website/flywheelcad`), pointing at the app checkout that was
+   just released — the site pulls from the app; nothing in the app writes
+   into the site:
 
-       python3 scripts/publish-manual-page.py      # -> flywheelcad/manual/index.html
-       python3 scripts/publish-ai-guide.py         # -> downloads/FlywheelCAD-AI-Scripting-Guide.md
-       python3 scripts/package-sample-zips.py      # -> downloads/FlywheelCAD-{Samples,Showcase}.zip
+       python3 scripts/import_app.py --app ~/Documents/Programming/swift/FlyWheelCADV3
+       python3 scripts/check_excerpts.py --app ~/Documents/Programming/swift/FlyWheelCADV3
 
-   then bump the `?v=YYYYMMDD<a/b>` cache-bust on whichever of those files
-   actually changed. At 0.23 the published AI guide was found five commits
-   behind its source, so this is a real failure mode and not a formality.
+   then put the version in `partials/version.txt`, run `python3 scripts/chrome.py`,
+   add the release post under `public/news/` (and to `news/index.html`,
+   `news/feed.xml` and the home page's news list), commit, and push `main`
+   (its pre-push hook runs `scripts/chrome.py --check --links`). No `?v=`
+   cache-busting: Pages revalidates every file on each request. At 0.23 the
+   published AI guide was found five commits behind its source, so this is a
+   real failure mode and not a formality.
