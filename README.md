@@ -15,6 +15,8 @@ the checksum to verify against.
 
 | Version | Download | SHA-256 |
 |---|---|---|
+| 0.36 (beta) | [FlywheelCAD-0.36.dmg](https://github.com/flx/flywheelcad-releases/releases/download/v0.36/FlywheelCAD-0.36.dmg) (macOS) | `7c6f800402dcb14234609f270e4e686e60724fc177311886ddc95d45e754f16c` |
+| 0.36 (beta) | [FlywheelCAD-0.36-x86_64.AppImage](https://github.com/flx/flywheelcad-releases/releases/download/v0.36/FlywheelCAD-0.36-x86_64.AppImage) (Linux) | `cdeb051e17a849fe418cc2d87905347ce5dc105d33c14fbf8933e55d8c8f9f16` |
 | 0.35 (beta) | [FlywheelCAD-0.35.dmg](https://github.com/flx/flywheelcad-releases/releases/download/v0.35/FlywheelCAD-0.35.dmg) | `55a860e05f2d4ef59456a694e0efb81406d6061c8a41a52bbd2f9437989e571c` |
 | 0.25 (beta) | [FlywheelCAD-0.25.dmg](https://github.com/flx/flywheelcad-releases/releases/download/v0.25/FlywheelCAD-0.25.dmg) | `fa586fcb48a7dd457c500896ff816a9cd68f47223dfe9db9f251ca64f858b884` |
 | 0.23 (beta) | [FlywheelCAD-0.23.dmg](https://github.com/flx/flywheelcad-releases/releases/download/v0.23/FlywheelCAD-0.23.dmg) | `fb18c9dac50f1722fe36e218b1f35ef6a294f57c7ca19d7c7fc5ef2573128dd6` |
@@ -27,8 +29,7 @@ no Gatekeeper warning. (0.20 is signed but not notarized and needs a
 right-click → **Open** on first launch.) The build bundles its own CPython
 runtime, so no system Python is required.
 
-**Linux** (x86_64, built and tested on Ubuntu 26.04), from the first release
-that lists an AppImage: `chmod +x FlywheelCAD-x86_64.AppImage` and run it. It
+**Linux** (x86_64, built and tested on Ubuntu 26.04), from 0.36: `chmod +x FlywheelCAD-x86_64.AppImage` and run it. It
 bundles GTK and its own CPython; GPU meshing uses the system Vulkan driver and
 falls back to the CPU without one. If it does not start, install `fuse3`.
 Verify it with `sha256sum` against the row below.
