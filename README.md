@@ -1,12 +1,13 @@
 # FlywheelCAD releases
 
 Public download host for [FlywheelCAD](https://flywheelcad.com/).
-The application source is private; only the built disk images are published here,
-as **release assets**.
+The application source is private; only the built macOS disk images and Linux AppImages are published
+here, as **release assets**.
 
 ## Downloads
 
-**Always the newest build:** [FlywheelCAD.dmg](https://github.com/flx/flywheelcad-releases/releases/latest/download/FlywheelCAD.dmg) — GitHub resolves that URL to
+**Always the newest build:** [FlywheelCAD.dmg](https://github.com/flx/flywheelcad-releases/releases/latest/download/FlywheelCAD.dmg) (macOS) ·
+[FlywheelCAD-x86_64.AppImage](https://github.com/flx/flywheelcad-releases/releases/latest/download/FlywheelCAD-x86_64.AppImage) (Linux) — GitHub resolves each URL to
 the newest release's asset of that name, so the download buttons on
 flywheelcad.com point there and never change. The
 versioned rows below are the same images under their versioned names, with
@@ -21,10 +22,16 @@ the checksum to verify against.
 | 0.21 (beta) | [FlywheelCAD-0.21.dmg](https://github.com/flx/flywheelcad-releases/releases/download/v0.21/FlywheelCAD-0.21.dmg) | `10f040ed9c71cdc5735c57cc0eeb2c7ac87a7ef3456f87910c1ee3b42c256cc2` |
 | 0.20 (beta) | [FlywheelCAD-0.20.dmg](https://github.com/flx/flywheelcad-releases/releases/download/v0.20/FlywheelCAD-0.20.dmg) | `5372f1ae039942a69c6559ce0e48fa9629ec2987140bbb6ffc1ce35aa7c9b4f7` |
 
-macOS on Apple silicon. **0.21 and later are notarized by Apple** — it opens normally, with
+**macOS** (Apple silicon, macOS 15.6+): **0.21 and later are notarized by Apple** — it opens normally, with
 no Gatekeeper warning. (0.20 is signed but not notarized and needs a
 right-click → **Open** on first launch.) The build bundles its own CPython
 runtime, so no system Python is required.
+
+**Linux** (x86_64, built and tested on Ubuntu 26.04), from the first release
+that lists an AppImage: `chmod +x FlywheelCAD-x86_64.AppImage` and run it. It
+bundles GTK and its own CPython; GPU meshing uses the system Vulkan driver and
+falls back to the CPU without one. If it does not start, install `fuse3`.
+Verify it with `sha256sum` against the row below.
 
 ## Why this repo exists
 
