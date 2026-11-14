@@ -4,6 +4,11 @@ Public download host for [FlywheelCAD](https://flywheelcad.com/).
 The application source is private; only the built macOS disk images and Linux AppImages are published
 here, as **release assets**.
 
+**About the "Source code (zip)" and "Source code (tar.gz)" links** on each
+release: GitHub adds them to every release automatically and they cannot be
+turned off. They are snapshots of *this* repository, which holds only this
+README — they contain no FlywheelCAD source code.
+
 ## Downloads
 
 **Always the newest build:** [FlywheelCAD.dmg](https://github.com/flx/flywheelcad-releases/releases/latest/download/FlywheelCAD.dmg) (macOS) ·
@@ -15,6 +20,8 @@ the checksum to verify against.
 
 | Version | Download | SHA-256 |
 |---|---|---|
+| 0.38 (beta) | [FlywheelCAD-0.38.dmg](https://github.com/flx/flywheelcad-releases/releases/download/v0.38/FlywheelCAD-0.38.dmg) (macOS) | `b178a3322280c1f04d587a2a452a9a62f4e7c96652eb5e4323ffd68004a20668` |
+| 0.38 (beta) | [FlywheelCAD-0.38-x86_64.AppImage](https://github.com/flx/flywheelcad-releases/releases/download/v0.38/FlywheelCAD-0.38-x86_64.AppImage) (Linux) | `9dc11c6dad0aac251be81c2d62090d46c38ab5fec3b9bd9fe643da081b8773d4` |
 | 0.37 (beta) | [FlywheelCAD-0.37.dmg](https://github.com/flx/flywheelcad-releases/releases/download/v0.37/FlywheelCAD-0.37.dmg) (macOS) | `3739a2be647016301212badbd7af2ea3519d7f1e9d13f01fd8ac6c167d842c2c` |
 | 0.37 (beta) | [FlywheelCAD-0.37-x86_64.AppImage](https://github.com/flx/flywheelcad-releases/releases/download/v0.37/FlywheelCAD-0.37-x86_64.AppImage) (Linux) | `2fb7c09088b64539ce007bd5c1a22799b9543eae22609066f68c6128189ab21e` |
 | 0.36 (beta) | [FlywheelCAD-0.36.dmg](https://github.com/flx/flywheelcad-releases/releases/download/v0.36/FlywheelCAD-0.36.dmg) (macOS) | `7c6f800402dcb14234609f270e4e686e60724fc177311886ddc95d45e754f16c` |
