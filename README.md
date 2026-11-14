@@ -15,6 +15,8 @@ the checksum to verify against.
 
 | Version | Download | SHA-256 |
 |---|---|---|
+| 0.37 (beta) | [FlywheelCAD-0.37.dmg](https://github.com/flx/flywheelcad-releases/releases/download/v0.37/FlywheelCAD-0.37.dmg) (macOS) | `3739a2be647016301212badbd7af2ea3519d7f1e9d13f01fd8ac6c167d842c2c` |
+| 0.37 (beta) | [FlywheelCAD-0.37-x86_64.AppImage](https://github.com/flx/flywheelcad-releases/releases/download/v0.37/FlywheelCAD-0.37-x86_64.AppImage) (Linux) | `2fb7c09088b64539ce007bd5c1a22799b9543eae22609066f68c6128189ab21e` |
 | 0.36 (beta) | [FlywheelCAD-0.36.dmg](https://github.com/flx/flywheelcad-releases/releases/download/v0.36/FlywheelCAD-0.36.dmg) (macOS) | `7c6f800402dcb14234609f270e4e686e60724fc177311886ddc95d45e754f16c` |
 | 0.36 (beta) | [FlywheelCAD-0.36-x86_64.AppImage](https://github.com/flx/flywheelcad-releases/releases/download/v0.36/FlywheelCAD-0.36-x86_64.AppImage) (Linux) | `cdeb051e17a849fe418cc2d87905347ce5dc105d33c14fbf8933e55d8c8f9f16` |
 | 0.35 (beta) | [FlywheelCAD-0.35.dmg](https://github.com/flx/flywheelcad-releases/releases/download/v0.35/FlywheelCAD-0.35.dmg) | `55a860e05f2d4ef59456a694e0efb81406d6061c8a41a52bbd2f9437989e571c` |
